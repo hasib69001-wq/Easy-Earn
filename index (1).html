@@ -473,14 +473,7 @@
         </nav>
     </div>
 
-    <!-- 
-        =====================================================================
-        ====== অ্যাড নেটওয়ার্কের SDK বসানোর জায়গা (প্রথম অংশ) ======
-        =====================================================================
-        এখানে আপনার পছন্দের অ্যাড নেটওয়ার্কের দেওয়া <script> ট্যাগটি বসাতে হবে।
-        নিচের লাইনটি একটি উদাহরণ মাত্র। আপনি এটিকে পরিবর্তন করে আপনার নিজের কোড বসাবেন।
-    -->
-    <script src='//libtl.com/sdk.js' data-zone='9702412' data-sdk='show_9702412'></script>
+    <script src='//libtl.com/sdk.js' data-zone='10165576' data-sdk='show_10165576'></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -592,11 +585,11 @@
 
                 // --- অ্যাড নেটওয়ার্কের কোড কল করার জায়গা (দ্বিতীয় অংশ) ---
                 // ======================================================================
-                // এখানে আপনার অ্যাড নেটওয়ার্কের দেওয়া ফাংশনটি কল করতে হবে।
-                // নিচের 'show_9702412()' লাইনটি একটি উদাহরণ।
+                // নতুন অ্যাড নেটওয়ার্কের ফাংশন কল: show_10165576('pop')
                 // ======================================================================
-                if (typeof show_9702412 === 'function') {
-                    show_9702412().then(() => {
+                if (typeof show_10165576 === 'function') {
+                    show_10165576('pop').then(() => {
+                        // বিজ্ঞাপন সফলভাবে দেখানো হয়েছে এবং ব্যবহারকারীকে পুরস্কৃত করার কোড
                         let earnings = parseFloat(localStorage.getItem('earnings')) + AD_REWARD;
                         let currentAdsWatched = parseInt(localStorage.getItem('adsWatched')) + 1;
                         
@@ -605,9 +598,12 @@
                         
                         tg.showAlert(`বিজ্ঞাপনটি দেখার জন্য আপনি BDT ${AD_REWARD.toFixed(2)} পেয়েছেন!`);
                     }).catch(() => {
+                        // বিজ্ঞাপন দেখাতে কোনো সমস্যা হলে
                         tg.showAlert('বিজ্ঞাপনটি দেখাতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
                     }).finally(() => {
                         updateUI();
+                        // বাটনটি আবার সক্রিয় করা
+                        watchAdBtn.disabled = false; 
                     });
                 } else {
                     // Fallback for testing in browser without Telegram
@@ -617,6 +613,7 @@
                     localStorage.setItem('adsWatched', currentAdsWatched.toString());
                     alert(`(Test Mode) You earned BDT ${AD_REWARD.toFixed(2)}!`);
                     updateUI();
+                    watchAdBtn.disabled = false;
                 }
             });
 
